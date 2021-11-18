@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  vue:
+    build: './docker/development'
+    volumes: [ './:/app' ]
+    working_dir: '/app'
+    ports: [ '8080:8080' ]
+    user: '1000:1000'
+    command: 'yarn serve'
