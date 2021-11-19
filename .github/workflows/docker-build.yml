@@ -1,0 +1,14 @@
+name: Build and push Docker image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker login ghcr.io --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
+      - run: docker build -t ghcr.io/${{ github.repository }}:latest -f ./docker/production/Dockerfile .
+      - run: docker push ghcr.io/${{ github.repository }}:latest
